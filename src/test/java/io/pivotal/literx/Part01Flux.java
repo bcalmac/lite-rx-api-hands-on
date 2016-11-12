@@ -26,9 +26,9 @@ public class Part01Flux {
 				.verify();
 	}
 
-	// TODO Return an empty Flux
+	// DONE Return an empty Flux
 	Flux<String> emptyFlux() {
-		return null;
+		return Flux.empty();
 	}
 
 //========================================================================================
@@ -42,9 +42,9 @@ public class Part01Flux {
 				.verify();
 	}
 
-	// TODO Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
+	// DONE Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
 	Flux<String> fooBarFluxFromValues() {
-		return null;
+		return Flux.just("foo", "bar");
 	}
 
 //========================================================================================
@@ -58,9 +58,9 @@ public class Part01Flux {
 				.verify();
 	}
 
-	// TODO Create a Flux from a List that contains 2 values "foo" and "bar"
+	// DONE Create a Flux from a List that contains 2 values "foo" and "bar"
 	Flux<String> fooBarFluxFromList() {
-		return null;
+		return Flux.fromIterable(Arrays.asList("foo", "bar"));
 	}
 
 //========================================================================================
@@ -72,9 +72,9 @@ public class Part01Flux {
 				.expectError(IllegalStateException.class)
 				.verify();
 	}
-	// TODO Create a Flux that emits an IllegalStateException
+	// DONE Create a Flux that emits an IllegalStateException
 	Flux<String> errorFlux() {
-		return null;
+		return Flux.error(new IllegalStateException(), true);
 	}
 
 //========================================================================================
@@ -88,9 +88,11 @@ public class Part01Flux {
 				.verify();
 	}
 
-	// TODO Create a Flux that emits increasing values from 0 to 9 each 100ms
+	// DONE Create a Flux that emits increasing values from 0 to 9 each 100ms
 	Flux<Long> counter() {
-		return null;
+		return Flux
+				.interval(Duration.ofMillis(100))
+				.take(10);
 	}
 
 }
