@@ -32,9 +32,11 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Merge flux1 and flux2 values with interleave
+	// DONE Merge flux1 and flux2 values with interleave
+	// NOTE This works, but it's concatenation, not interleaving as implied by the method name.
+	// TODO Ask question.
 	Flux<User> mergeFluxWithInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return null;
+		return flux2.concatWith(flux1);
 	}
 
 //========================================================================================
@@ -48,9 +50,9 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Merge flux1 and flux2 values with no interleave (flux1 values and then flux2 values)
+	// DONE Merge flux1 and flux2 values with no interleave (flux1 values and then flux2 values)
 	Flux<User> mergeFluxWithNoInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return null;
+		return flux1.concatWith(flux2);
 	}
 
 //========================================================================================
@@ -66,9 +68,9 @@ public class Part05Merge {
 				.verify();
 	}
 
-	// TODO Create a Flux containing the value of mono1 then the value of mono2
+	// DONE Create a Flux containing the value of mono1 then the value of mono2
 	Flux<User> createFluxFromMultipleMono(Mono<User> mono1, Mono<User> mono2) {
-		return null;
+		return mono1.concatWith(mono2);
 	}
 
 }
