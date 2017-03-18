@@ -32,10 +32,8 @@ public class Part05Merge {
 	}
 
 	// DONE Merge flux1 and flux2 values with interleave
-	// NOTE This works, but it's concatenation, not interleaving as implied by the method name.
-	// TODO Ask question.
 	Flux<User> mergeFluxWithInterleave(Flux<User> flux1, Flux<User> flux2) {
-		return flux2.concatWith(flux1);
+		return flux1.mergeWith(flux2);
 	}
 
 //========================================================================================
