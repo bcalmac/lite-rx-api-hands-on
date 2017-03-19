@@ -50,9 +50,9 @@ public class Part07Errors {
 				.verifyComplete();
 	}
 
-	// TODO Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
+	// DONE Return a Mono<User> containing User.SAUL when an error occurs in the input Mono, else do not change the input Mono.
 	Mono<User> betterCallSaulForBogusMono(Mono<User> mono) {
-		return null;
+		return mono.otherwise(throwable -> Mono.just(User.SAUL));
 	}
 
 //========================================================================================
@@ -70,9 +70,9 @@ public class Part07Errors {
 				.verifyComplete();
 	}
 
-	// TODO Return a Flux<User> containing User.SAUL and User.JESSE when an error occurs in the input Flux, else do not change the input Flux.
+	// DONE Return a Flux<User> containing User.SAUL and User.JESSE when an error occurs in the input Flux, else do not change the input Flux.
 	Flux<User> betterCallSaulAndJesseForBogusFlux(Flux<User> flux) {
-		return null;
+		return flux.onErrorResumeWith(throwable -> Flux.just(User.SAUL, User.JESSE));
 	}
 
 //========================================================================================
@@ -85,9 +85,18 @@ public class Part07Errors {
 				.verifyError(GetOutOfHereException.class);
 	}
 
-	// TODO Implement a method that capitalize each user of the incoming flux using the capitalizeUser() method and emit an error containing a GetOutOfHereException exception
+	// DONE Implement a method that capitalize each user of the incoming flux using the capitalizeUser() method and emit an error containing a GetOutOfHereException exception
 	Flux<User> capitalizeMany(Flux<User> flux) {
-		return null;
+		return flux.map(this::capitalizeUserUnchecked);
+	}
+
+	// Personal note: While this solves the problem, checked exception are still a wart for functional style Java.
+	User capitalizeUserUnchecked(User user) {
+		try {
+			return capitalizeUser(user);
+		} catch (GetOutOfHereException e) {
+			throw Exceptions.propagate(e);
+		}
 	}
 
 	User capitalizeUser(User user) throws GetOutOfHereException {
